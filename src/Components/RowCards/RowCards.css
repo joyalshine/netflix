@@ -1,0 +1,11 @@
+.cards-row {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+}
+.cards-row::-webkit-scrollbar {
+  display: none;
+}
+.rowTitle {
+  color: white;
+}

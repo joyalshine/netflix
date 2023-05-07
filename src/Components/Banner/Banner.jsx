@@ -25,6 +25,7 @@ function Banner() {
           attemp to pull off the greatest heist of all time
         </p>
       </div>
+      <div className="fade-bottom"></div>
     </div>
   );
 }
