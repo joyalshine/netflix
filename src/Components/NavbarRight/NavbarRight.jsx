@@ -4,7 +4,7 @@ import "./NavbarRight.css";
 export const NavbarRight = () => {
   return (
     <div className="navbarRight">
-      <i class="bx bx-search-alt-2" style={{ color: "white" }}></i>
+      <i className="bx bx-search-alt-2" style={{ color: "white" }}></i>
       <a href="" className="navlink">
         KIDS
       </a>
@@ -12,7 +12,7 @@ export const NavbarRight = () => {
         DVD
       </a>
       <i
-        class="bx bxs-bell"
+        className="bx bxs-bell"
         style={{ color: "white", marginInline: "15px" }}
       ></i>
       <div>

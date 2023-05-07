@@ -1,28 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
+import axios from "../../axios";
 
 import "./Banner.css";
+import { API_KEY, BANNER_IMG_URL } from "../../Constants/Constants";
 
 function Banner() {
+  const [movie, setMovie] = useState();
+
+  useEffect(() => {
+    axios
+      .get(`trending/all/week?api_key=${API_KEY}&language=en-US`)
+      .then((response) => {
+        setMovie(response.data.results[0]);
+      });
+  }, []);
   return (
-    <div className="banner">
+    <div
+      className="banner"
+      style={{
+        backgroundImage: movie
+          ? `url(${BANNER_IMG_URL + movie.backdrop_path})`
+          : "",
+      }}
+    >
       <Navbar />
       <div className="titleDiv">
-        <h1 className="title">
-          MONEY <br /> HEIST
-        </h1>
+        <h1 className="title">{movie ? movie.title : ""}</h1>
         <button type="button" className="title-btn">
-          <i class="bx bx-play"></i> Play
+          <i className="bx bx-play"></i> Play
         </button>
         <button type="button" className="title-btn">
-          <i class="bx bx-plus"></i>My List
+          <i className="bx bx-plus"></i>My List
         </button>
       </div>
       <div className="title-description">
         <p>
           <b> Watch Part 3 Now</b> <br />
-          With millions of euros and their lives on the line, nine robbers
-          attemp to pull off the greatest heist of all time
+          {movie ? movie.overview : ""}
         </p>
       </div>
       <div className="fade-bottom"></div>

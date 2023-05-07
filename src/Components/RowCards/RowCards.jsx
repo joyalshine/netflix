@@ -1,21 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../Card/Card";
+import axios from "../../axios";
+import Youtube from "react-youtube";
 
 import "./RowCards.css";
-let link =
-  "https://images.squarespace-cdn.com/content/v1/59232e19579fb3fa44a693c2/1589212826160-UM9PEPGOS3OJPR0FJ81X/ke17ZwdGBToddI8pDm48kHZUaJeKzodyg_sXWBMxNTdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpxCBUU7B-_SAG1kGvCwYgmUjQXvn8_OJjtz3K1llMQBa1MPsuSXPSY3X-tgg78M7lI/SKOyqL1qFLIhbK6ho2lB-696x975.jpg?format=1500w";
-let data = [link, link, link, link, link, link, link, link, link, link];
+import { POSTER_URL, API_KEY } from "../../Constants/Constants";
 
-function RowCards() {
+const opts = {
+  height: "390",
+  width: "100%",
+  playerVars: {
+    autoplay: 1,
+    origin: "http://localhost:3000",
+  },
+};
+
+function RowCards({ rowTitle, link, small }) {
+  const [movieList, setMovieList] = useState([]);
+  const [URL, setURL] = useState("");
+
+  useEffect(() => {
+    axios.get(link).then((response) => {
+      setMovieList(response.data.results);
+    });
+  }, []);
+
+  const playVideo = (id) => {
+    axios
+      .get(`movie/${id}/videos?api_key=${API_KEY}&language=en-US`)
+      .then((response) => {
+        console.log(response.data.results[0]["key"]);
+        setURL(response.data.results[0]["key"]);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
   return (
-    <div>
-      <h3 className="rowTitle">Title</h3>
-      <div className="cards-row">
-        {data.map((item) => {
-          return <Card link={item} />;
-        })}
+    <>
+      <div style={{ marginBottom: "30px" }}>
+        <h4 className="rowTitle">{rowTitle}</h4>
+        <div className="cards-row">
+          {movieList
+            ? movieList.map((item, index) => {
+                return (
+                  <Card
+                    link={POSTER_URL + item.backdrop_path}
+                    id={item.id}
+                    key={index}
+                    small={small}
+                    onClickFn={playVideo}
+                  />
+                );
+              })
+            : ""}
+        </div>
       </div>
-    </div>
+      {URL && <Youtube videoId={URL} opts={opts} />}
+    </>
   );
 }
 
