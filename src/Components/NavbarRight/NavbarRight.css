@@ -1,0 +1,11 @@
+.navbarRight {
+  display: flex;
+  justify-content: space-evenly;
+  padding-right: 15px;
+}
+
+.navlink {
+  font-size: small;
+  text-decoration: none;
+  margin-inline: 15px;
+}

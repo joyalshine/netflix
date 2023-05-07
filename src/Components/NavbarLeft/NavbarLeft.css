@@ -1,0 +1,21 @@
+.navlink {
+  font-size: small;
+  margin-inline: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.logo {
+  padding-left: 15px;
+}
+
+.navlinksDiv {
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 40px;
+}
+
+.navbarLeft {
+  display: flex;
+  justify-content: space-evenly;
+}
